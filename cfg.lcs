@@ -1,0 +1,37 @@
+lcs:bin
+
+$config 
+
+#kernel 
+    [exec case.file flow cmd(struct)] 
+sh: path = ("A:\boot\kernel.csf.knl")@sign = hash.sig(form_sdl sign) 
+
+#int 
+    [int path.flow exec_ls cut ls: daemon int_bin] 
+sh: path = ("A:\boot\initrd_image.csf.intmg") 
+
+#sig-check
+    [check.sig sign.pkg(exev:flow) = true(f=null.cut)] 
+check: boot.sig.sdl boot:dir exec:sign_match ent(external_sign tagFind.present ash<dev_pushUPD)  
+
+#hardware-req 
+    [check comp = true exec:flow(chain_current) stop f = activeCurrent_flow] 
+mem: 512 (sys_asoc-hardware) 
+sse2: sse2 (sys_asoc req hardware) 
+vtx: vtx (sys_asoc req hardware) 
+
+#secboot 
+    [exec:flow@normal] 
+uns: uns = false @check:active activeCurrent_flow lock.knl(rp_csf) 
+hash: sha256:sign ++ sign $dev cod_comp: %$IERRA% check_unsign 
+
+#recov
+    [revoc:flow exec_chain cmd&&^] 
+fallback: create:DivNew recent:call (knl_fallback) ver_rec: img same dir_chain case:(parse_form) = "fallback.csf.knl" 
+lowmem: lowmem = true exec_prev(in file cmns_img) 
+
+#init 
+    [exec_dir] 
+exec: boot*after check = true   exec_dir(path name file) = "A:\boot\dskinit.csf.nt" 
+
+!end
