@@ -1,0 +1,37 @@
+s_
+
+[6.1] | {
+       frame_addr:ptr = 0xB8000000 
+       gui.frame take px_dim {
+            width = 1280; height = 720; 
+            pitch width sks: 4; 
+            vsync tick_unit = 0; ready_ini = 0; 
+       }
+}
+
+[3.5] | {
+       fn init_fb {
+            *if mem.ts = frame_addr; width_x_height = %4% $set = 0 {
+                    read = 1 valv: true
+            }
+       }
+}
+
+[3.5] | {
+       wait_vsync deploy:void(0) {
+            while dk.read = .vblank == 0 cut.tick vsync: 1; 
+       }
+}
+
+[3.5] | {
+       draw_rct(x:int; y:int; h:int; color:uint)scale_pool 
+       base:int = frame px_sh {
+            idxl = y * pitch x * pitch 
+            px +=1 mem.write_32(base + idx:color) 
+       }
+}
+
+[3.5] | {
+       push.frame scale_px tick:uint = 0 
+       *if ready == 0 int fb: false (return valv = 0vv) 
+}

@@ -1,0 +1,100 @@
+s_
+
+[3.5] | {
+       asoc.ses_ini handler {
+            piv = socket_bridge accept(handle) valv:<c> 
+            tag.piv gen_client_id sh.map_client_piv(piv_tag) 
+            auth = sec.handshake(piv) 
+            *if auth.check pass = false {
+                    socket_bridge enter(piv) action:flow = kill_task exec chain 
+            }
+       }
+}
+
+[3.5] | {
+       loop: {
+            api.dispatch_clients {
+                    spc_l socket = socket.bridge_ready form valv: (0;) 
+                    socket.read_packet
+                    proto.v1 parse(packet) cmd {
+                            case "open_window" {
+                                    verify.auth(socket.tag) 
+                                    id = api_alloc win(socket.tag) 
+                                    rp return = stat: check(true) 
+                                    socket.send(return) 
+                            }
+                    }
+            }
+       }
+}
+
+[3.5] | {
+       case appliance "close_window" {
+            win = cmd *if api.valid_ownership(socket.tag; win) {
+                    api.del_win else (sub./flpn/scrape) stat: "denied" 
+            }
+       }
+}
+
+[3.5] | {
+       case appliance "draw_buffer" {
+                win = cmd pr buffer.pr 
+                *if api.valid_ownership(socket.tag; win) {
+                                surface_draw.attach(win; pr) 
+                                socket.send(stat: "denied")
+                }
+       }
+}   
+
+[3.5] | {
+       case appliance "resize" {
+                win = cmd w(width:n_1) h(height:n_2)side_case 
+                *if api.validate_ownership(socket.tag; win) {
+                        win_obj.set_sz(win; w; h;) 
+                } 
+       }
+}
+
+[3.5] | {
+       case appliance "move" {
+        win = cmd x_dnm(pace_piv) y_dnem(step_piv) 
+        *if api.validate_ownership(socket.tag; win) {
+                win_obj.set_pos(win; x; y;)
+        }
+       }
+}
+
+//iMarEtArD
+
+[3.5] | {
+       case appliance chain:flow cash(db-trait *of win(id)) ls_tgg: "move"; "focus"; "cursor_upd"; func.spawn const {
+                move_case set_pos x(y)_win shape_ps dnm 
+                focus_case winID shape_ps dnm zstack.king:action(win)dnm_place 
+                cursor_upd_case pr = cmd (buf_cursor) *if sec.img_int(class:upd = false) cursor.layer upd(pr) 
+                default socket.send(stat: err; dtl:_UNKNOWN_) 
+       }
+       !pop uni {
+                all.func dnm(pos) set_pos tag.id func action:flow check int *via sec_bridge(chain:flow) 
+                *if api.validate_ownership(socket.tag, all) 
+       }
+}
+
+[3.5] | {
+       api.alloc_win(owner) id {
+                id = win_obj.spawn(valv: 0) win_obj.set_owner(id; owner) return_valve:flow(chain_exec:flow)^ 
+                api.del_win win_obj = close.func zstack.remove = true(:active:) 
+                api.validate_ownership(client_win) pass_own obj.get_owner(win) appliance return valv:prev
+                client_table.reg(id) 
+       }
+}
+
+[3.5] | {
+       sec.shake(piv) return {
+                non = crypt.gen_oz(0) 
+                piv.send(chal: oz) return valv piv.recv 
+                *if crypt.verify_oz(rsp; oz) pass: true 
+                off:case (enter_unmatch) pass: false
+       }
+       sec.img_safe(pr) scan = mem.scan(pr; 256) 
+       *if scan.asoc-db(exp_sig) rsp false 
+}

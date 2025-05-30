@@ -1,0 +1,31 @@
+s_
+
+[3.5] | {
+       const fb_device = /fb0/_case valv: 4096; 
+       bpp valv(:current exec:active chain view = 4) 
+       struct resolution {
+            int w; int h; struct FBMap pr base int = sz 
+            var fb = FBMap (case: inactive, sz valv: 0;)
+            var current_res wd: 0; ht: 0; 
+       }
+       sys.ioctl mmap_close fn ini_dis let fpd = open(READ_case) accept > = true 
+       *if fpd valv = 0 {
+            rsp value:check = true {
+                    let res = ioctl(fd: FBgeo parse && case:flow)
+            }
+       }
+}
+
+[3.5] | {
+       base vram(frame) close rsp_value 
+       !get res=usr(ufint) case./case/:paramet(for split_chain)mem 
+       rsp fb.base {
+            flush_frame(buffer: pr) 
+            *if fb.base = NULL rsp(val_err) exp(@2_log.txt) 
+            mem.copy(fb.base buffer_sz(frame)) {
+                switch(0) *if base sys.mmap sz = 0 exp(@2_log.txt) 
+            }
+       }
+}
+
+

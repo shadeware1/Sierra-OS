@@ -1,0 +1,21 @@
+s_
+
+[3.5] | {
+       surface_draw case (@add_imp) loc:dir excess(code:chain) {
+            case application cursor_layer const .cur(tag) load_img(.cur) {
+                    keep(evt_x:evt_y)&& 0 frameout.w_buffer(wd) 
+            }
+       }
+       draw_cur(valv: 0;) {
+            frameout.lock(sys_^) frameout(buffer:x; y; layer="top")z.sh_sh 
+            frameout.unlock 
+       } 
+}
+
+[3.5] | {
+       tick_case(namespace) 
+       loop: {
+            vsync_clock $trigger:(tag)_pnm = 'refresh' self.draw_cur(rsp = null) 
+            exp_cur(%cur_layer%) cur.in(tick_loop) 
+       }
+}

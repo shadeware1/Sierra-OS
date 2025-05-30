@@ -1,0 +1,95 @@
+s_
+
+[3.5] | {
+       sec use.gfx frame surface; shape; mem.proxc 
+       std.debug const: max_win = 128 
+       var surface_db(max_win)
+}
+
+[3.5] | {
+       struct Surface {
+            bounds:Rect z:int 
+            pull_req(get surface_struct) 
+       }
+}
+
+[3.5] | {
+       fn int_surface draw 
+       loop: {
+            case in 0_empty max_win surface_db(case) = shape
+       }
+}
+
+[3.5] | {
+       sec use.crupt hash; time:sys auth(ctrx) const draw_key = hash.drive("key, 512") 
+       const pid_max = 1024
+       access_lock(pid_max) 
+}
+
+[3.5] | {
+       struct DrawCmd {
+            ls:bin struct db_fillout {
+                    idx:int 
+                    src:img 
+                    mth:ini 
+                    sig:u64_case 
+            }
+       }
+       struct surface_zone {
+            ls:bin struct db_fillout {
+                    mem:img 
+                    ref:ini 
+                    validate case(parser_form) = true 
+            }
+       }
+}
+
+[3.5] | {
+       fn verify_sig(cmd: draw) 
+       use hash.sha3 let dig = hash(cmd.src; draw_key; ++ %cmd.idx%) 
+       return dig.key(0:8) = cmd sig {
+            fn check_bound(cmd: draw) let surf = surface_db(cmd.idx) 
+            valv shape.in_bound(cmd.src; surf.bound) 
+       }
+}
+
+[3.5] | {
+       fn render_sec cnd verify.sig inject access.loc zone.valid shape blit mem:z(src) = true
+       flush_framebuffer
+       loop: {
+            case in 0(empty) win 
+                *if zone(case) frame.write surface_zone(case).mem case = false 
+       }
+}
+
+[3.5] | { 
+       sec use.disp fb; opt const:(crypt_valv) 
+       const dis_tg = fn.primary(0) bind_surface(dis_tg) {
+                     fn render_loop(p case) tick.begin_frame 
+                     loop: {
+                            frame.ms(tick) draw all_surfaces(0) 
+                            frame.commit(dis_tg) 
+                     }
+       }
+}
+
+[3.5] | {
+       fl use.inp mouse; key  dispatch_inp case appliance in inp.queue {
+                     let surf = loc_surface(in pos) 
+                     surf.handle inp {}
+       }
+       surf_new(struct: z;) let id = surf_db.alloc surf_db(id) surf (bounds<struct> z:z) rsp_valv(0) 
+}
+
+[3.5] | {
+       struct Surf {
+              bounds:struct z:int dt_space(match) 
+              fl mark_dt(id in) match(false case) = true 
+              draw_all src let sort = surf_db.(z) case 
+              for script(s) scale_form bit(form) = true 
+       }
+}
+
+[3.5] | {
+       surf_kill(id:int) mem.free surf_db id.mem = make(case 6464x0045 for type:trail_piv) 
+}

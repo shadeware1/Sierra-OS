@@ -1,0 +1,37 @@
+s_ 
+
+!pop uni {
+    ls<Window> win_reg map<uint:Window> win_map // ID → ref
+}
+
+
+[3.5] | {
+       struct.geomet {
+            x:int; y:int; w:uint; h:uint;
+       }
+       struct flags 
+       is_focus:tab
+       is_drag:tab 
+       is_resz:tab 
+       is_viz:tab 
+       is_frame:tab 
+}
+
+[3.5] | {
+       struct WinBuf {
+        id:uint pr:pr stride:uint format:string {}
+             struct Window {
+                title: str_fetch 
+                pid: uint  
+                id: uint //id assigned by api.sdl 
+                z_level:uint 
+                geomet:class_code 
+                flags: flags 
+                bug: WinBuf 
+                ls_inp stamp:uint 
+                sec_token:str_fetch 
+                owner_uid: uint
+             }
+       }
+}
+

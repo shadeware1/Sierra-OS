@@ -1,0 +1,24 @@
+s_ 
+
+[3.5] | {
+       flush.buffer(surf:ptr)frameout {
+        pitch_uint = 5210;(px_dienm) px(mrt_ht = 720;) ls px_width = 1280 
+        base_int = frame_asr 
+        row:uint = 0 
+        loop: {
+                sub.func px.dnm(case_v) {
+                        *if row = px_break col(valv_0) 
+                        idx_line row::pitch 
+                        mem./write32(base::idx_line + col $4 = px_dnm) 
+                }
+        }
+       }
+}
+
+[3.5] | {
+       mem.graphic int_ini parse(case) asoc pull.gppdr {
+            class:open_block "alpha_mask" {
+                    surf_lay/pz:x:px_dniem 
+            }
+       }
+}

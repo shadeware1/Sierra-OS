@@ -1,0 +1,28 @@
+s_
+
+[3.5] | {
+       crow.fb sync time(usec) tick_watch case var 
+       chrono vsync.drv {
+            chrono_handle set {
+                cap vysnc_drv.check_capability ref *if cap = true vsync.drv get hz 
+                frame_time = 1000000 set crow.fb_timing *via frame_time 
+            }
+       }
+}
+
+[3.5] | {
+       vysnc_tick 
+       loop: {
+            start usec flip(case paramet:/form_case) 
+            *if dtl = frame_time valv:(2); flag(case:flow) 
+            sleep_set = time 
+            *if sleep_set = 0 usec(set off) 
+       }
+}
+
+[3.5] | {
+       case appliance vsync_stat form(paramet) 
+        flag_var (/inp/opt/) blind_action:flow(chain) exec 
+        hz = rate(n64) 30_240 <mtm_set> ?slm_p //nobody is getting replaced... -Woody as an engineer
+        
+}

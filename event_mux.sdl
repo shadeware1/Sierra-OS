@@ -1,0 +1,45 @@
+s_
+
+[3.5] | {
+       struct inp_event {
+            src:enum (KB; MOUSE; TOUCH;) 
+            code:uint valv:uint ts:uint_64 str.fetch {
+                    struct route_tg 
+                    win_id:uint layer: uint 
+            }
+       }
+}
+
+[3.5] | {
+       spec:inp_queue = in event 
+       spec:routed_events = queue struct route_tg 
+}
+
+[3.5] | {
+       sec.map resolve_tf(Event:in event) route_tg {
+            *if event.src == KB trg = zstack.top(0) 
+            elif event.src == MOUSE trg = win.obj.loc_at(event_dniem x:y;) 
+            trg = fallback.touch map event.touch_id {
+                return route_tg 
+                win_id = tg.id; layer = tg.layer; focus = win.obj check_focus(tg_id) 
+            }
+       }
+}
+
+[3.5] | {
+       mux.route(event: in event) tg = resolve_tg(Event:case) 
+       *if tg.focus win.obj set_focus(tg win_id) 
+       route event.push(@tg) 
+       hook.inp inject(Event:in event) {
+            *if sec.filter(event) inp_queue.push(event) 
+       }
+}
+
+[3.5] | {
+       loop: {
+            pol_inp(0) 
+            while inp_queue.() 
+                event = inp.pop mux.route(event)
+       }
+       while route_event.() prom.emit(tg) on.tick = 1000fps poll_inp 
+}
