@@ -1,5 +1,5 @@
-# Sierra-OS
-Sierra 11 OS is a hyper secure, high performance operating system engineered for high level operations, threat analysis, and offensive/defensive security engagements as well as much more. It's built from a custom kernel, and all OS system parts are developed in house. This is NOT a Linux distro, Windows rice, or any other previously released operating system. 
+# BlackwingOS
+BlackwingOS is a hyper secure, high performance operating system engineered for high level operations, threat analysis, and offensive/defensive security engagements as well as much more. It's built from a custom kernel, and all OS system parts are developed in house. This is NOT a Linux distro, Windows rice, or any other previously released operating system. 
 
 ### Kernel
 - **Name**: Pixie
@@ -17,6 +17,6 @@ Sierra 11 OS is a hyper secure, high performance operating system engineered for
 
 - Notices: We do not collect telemtry in anyway whatsoever.
 - This OS is written in LCS script, SDL script, Mint#, C++, C, Rust, HTML, and CSS.
-- All components are Sierra 11 native this OS does not utilize KDE Plasma or GNOME.
+- All components are BlackwingOS native this OS does not utilize KDE Plasma or GNOME.
 
 - Contant for licensing inquiries.
