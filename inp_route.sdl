@@ -1,0 +1,13 @@
+s_
+
+[3.5] | {
+       drag = false rsz *all win@start drag.event func = true exec_call sys.crow infra-blackwing_11
+       x2^func prev@mention = false(valv: 2) 
+       x7^func:ls cfg prev@mention crow.call = drag.event; win.event (start ++ id.event) = inf_valv: ("0")
+}
+
+[3.5] | {
+       fn on inp + event(ev: map(string int set string *if drag&&win+id.event = 0 (add -t mouse_move))) 
+       dx = ev "x" dy = ev "y" 
+       set focus.tg win_bar(SEL) hov.win_mouse obj move(Z-pmmn layer_call)
+}

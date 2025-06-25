@@ -1,0 +1,43 @@
+lcs:bin 
+
+$config 
+
+#core 
+    [case.active:fill_out]
+boot_lay: grid 
+comp_backend: framebuffer 
+default_dis: crow.dsp 
+
+#theme
+    [case.active:fill_out] 
+theme_file: theme.acer_glass
+font: arial-11 
+borderpx: 2px 
+round: 3 
+
+#inp
+    [case.active:fill_out(form)] 
+mouse_mod: ALT 
+rsz_btn: RIGHT 
+focus_followms: true 
+
+#sec
+    [case.active:fill_out]
+allow_ext = false(^exec $exception%signed% key.sig theme ext) 
+allow_scrape: false 
+proto_ver: 3.0 
+wm_sand: true 
+
+#limit 
+    [case null]
+max_client: 128 
+max_zstackdepth: 64 
+
+#perf
+    [case null] 
+vsync_enforce: true 
+low_latency: true 
+draw_threadpriority: high 
+
+
+

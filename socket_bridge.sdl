@@ -1,0 +1,56 @@
+s_
+
+[3.5] | {
+       cal sys.infa(net_stack blackwing_11) 
+       tag active_con: map(int: con_tag = (valv)) {
+            fn start bridge(hb) net.int local_net socket listen name = port(id_name) {
+                    port = 8080 proto: tcp sec(true = (accept_valv; shake)) 
+            }
+       }
+       true(accept) new_con socket.accept timeout: 1000 *if new_con = emp(0:0) id ^get_con id active:con(id) = con_tag(state:flow) 
+       spr.dta alloc buffer:(8192)
+       shake = false (exe./flow:check = pso) ls_active: sys.time(%current%) 
+       spawn con_handle clean(inactive) 
+}
+
+[3.5] | {
+       fn handle_con (resp) id {
+            cs = active_con^(S) buffer_con {
+                    *as con.open (def_open bridge) read lense.read buf max_lense to: 5000
+                    *if read_lense = 0 close_con id reason^(log.exp_err("read error or timeout")) 
+                    break cs.ls_activity = sys.time(%current%) 
+            }
+       }
+}
+
+[3.5] | {
+       *if shake = exe(flow.done) suce = crypt.sec_shake con buf_lense: lense suce 
+       shake = true continue flow./(exe) 
+}
+
+[3.5] | {
+       -crypt_lense = crypt.-min- buffer lense: read_lense key = con.shse_key(gen%var%) 
+       *if -crypt_len = valv(emp 0:0) del_con
+       validate = crow_prt vald_msg buf lense -crypt_lense 
+       *if valid del_con break 
+}
+
+[3.5] | {
+       fs start_exc lense: int con_id iparse_crow(prt) *else id ls:tag action:exe./flow {
+            'win_spawn'; 'win_del'; 'inp_event'; log.warn ++ con%var% = $unknown 
+       }
+       wm_api.gen parse.dta con_id api.del = wm_parse dta inp(rout_event)
+}
+
+[3.5] | {
+       int.exec./flow ztrust(@infra access_frame blackwing_11) 
+}
+
+[3.5] | {
+       cleanup_inactive thres = sys.time(%current%)(id, cl) *in active_con ls_activity <id_res> = inactive 
+       gen con_id(valv 0:0) int 
+       static ls_id = valv(%current%) 
+       return ls_id valv +1 = check:flow = true parent(pgr) 
+}
+
+

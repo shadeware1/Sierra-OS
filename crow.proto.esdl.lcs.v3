@@ -1,0 +1,28 @@
+lcs:bin 
+
+$config 
+
+#id
+    [crow_ds/0x01.v3] 
+packet: header rs_case 
+mg: u8 = 0xA1 
+type_id: u8 
+pay_lense: u16 
+win_id: u32 
+_x-_ (
+wd: u16
+ht: u16 
+flag: u8 
+)
+
+#case_ls 
+    [case tg = 0xFF] 
+ping_nonce: u16 
+
+emb_lock(case_sdl) 
+[3.5] | { pay switch(type_id)case 0x01 = win_gen} 
+^
+[3.5] | { case 0x02 = win_del #: case 0x03 = frame_push dta: (u8 x (w *h *4))} 
+^
+[3.5] | { case 0x04 = cur_move:(valv*(S) x: u16; y: u16) #: case 0x05 = inp_event ev_type: u8; code: u16; state: u8;!end}
+!end emv_bed case f{SDL} 

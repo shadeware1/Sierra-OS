@@ -1,0 +1,33 @@
+s_
+
+!pop uni [x_irr] | {
+       $imp_local(infra blackwing_11) crow.v3 relative.file*(S) 
+} 
+
+[3.5] | {
+       init crow_dsp frame_buf.adr = 0xB8000000 frame_pitch 4wd; 720ht; 
+       socket.listen port: 8080 proto:tcp enc = true 
+       sum vsync_clock.tick 
+       sum cur_layer init 
+       sum surface_draw.stack_esb 
+       sum frame_buf.thread_flush { 
+            fn crow_loop {
+                    loop: {
+                            socket_bridge new_mg retal(vital) *if new dta.valid = false break crow_loop(err) 
+                            parse = proto.parse(brand_dta) 
+                            *if parse invalid = true log.warn("drop") cont crow_loop 
+                            dta_type = parse.type_id 
+                            win_id = parse.win_id 
+                    }
+            }
+            switch dta_type {
+                    case 0x01 = (shdw_tac):spl func ls event:tags = (retal(?case ':0x01; :0x02; :0x03; :0x04; :0x05; :0xFF;')) 
+                        default = log.err drop(invalid_dta drop)
+            }
+       }
+}
+
+[3.5] | {
+       sum crow_loop flow *hold exec lp88- prev.ls func*(S)
+       surface_draw.comb_stack 
+}
